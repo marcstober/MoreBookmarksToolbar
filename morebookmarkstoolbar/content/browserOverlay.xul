@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
+<?xml-stylesheet type="text/css"
+href="chrome://morebookmarkstoolbar/skin/browserOverlay.css" ?>
+
+<!DOCTYPE overlay SYSTEM
+"chrome://morebookmarkstoolbar/locale/browserOverlay.dtd">
+
+<overlay id="morebookmarkstoolbar-browser-overlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="application/x-javascript"
+		src="chrome://morebookmarkstoolbar/content/browserOverlay.js" />
+
+	<toolbox id="navigator-toolbox">
+		<toolbar id="morebookmarkstoolbar-Toolbar" toolbarname="Tutorial Toolbar" accesskey="T"
+			class="chromeclass-directories" context="toolbar-context-menu" 
+			hidden="false" persist="hidden">
+			<!-- TODO: add URL, version to string bundle and link from about box -->
+			<toolbarbutton id="morebookmarkstoolbar-main-button" class="bookmark-item"
+				tooltiptext="About More Bookmarks Toolbar"
+				oncommand="alert('More Bookmarks Toolbar\nby Marc Stober\n\nAdd bookmarks to the folder More Bookmarks Toolbar and restart Firefox to see them here.');" />
+			<toolbaritem id="morebookmarkstoolbar-DynButtonContainer" 
+				oncommand="MoreBookmarksToolbar.BrowserOverlay.navigate(event);" />
+		</toolbar>
+	</toolbox>
+</overlay>

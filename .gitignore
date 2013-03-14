@@ -1,0 +1,5 @@
+# build output
+*.xpi
+cd MoreBookmarksToolbar
+# exclude (Mac)Vim swap files.
+*.swp
