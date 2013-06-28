@@ -9,7 +9,7 @@ MoreBookmarksToolbar.BrowserOverlay = {
 	addButtons : function(e) {
 		//alert("adding buttons..."); // debugging
 
-		// get the Extra Bookmarks folder
+		// get the More Bookmarks folder
 		var folderId = this.getFolderId();
 
 		var folderItems = this.getFolderItems(folderId);
@@ -62,12 +62,11 @@ MoreBookmarksToolbar.BrowserOverlay = {
 		root.containerOpen = true;
 		// iterate over immediate children of this folder
 		var itemId = -1;
+		var title = "More Bookmarks Toolbar"; // TODO const?
 		for (var i = 0; i < root.childCount; i ++) {
 		  var node = root.getChild(i);
 			if (node.type === node.RESULT_TYPE_FOLDER) {
-				// FUTURE: Don't hardcode this.
-				// TODO: Add this folder if it doesn't exist (with link to me?)
-				if (node.title === "More Bookmarks Toolbar") {
+				if (node.title === title) {
 					itemId = node.itemId;
 					break;
 				}
@@ -76,6 +75,24 @@ MoreBookmarksToolbar.BrowserOverlay = {
 
 		// Close a container after using it!
 		root.containerOpen = false;
+
+		// Add folder if doesn't exist, with link to extension's home page.
+		if (itemId === -1) {
+			itemId = bmsvc.createFolder(
+				bmsvc.bookmarksMenuFolder,
+				title,
+				bmsvc.DEFAULT_INDEX);
+
+			// create an nsIURI for the URL to be bookmarked.
+			var bookmarkURI = Components.classes["@mozilla.org/network/io-service;1"]
+                .getService(Components.interfaces.nsIIOService)
+                .newURI("http://www.marcstober.com/blog/more-bookmarks-toolbar/", null, null);
+
+			var bookmarkId = bmsvc.insertBookmark(
+				itemId, bookmarkURI, bmsvc.DEFAULT_INDEX,
+				"More Bookmarks Toolbar Homepage");    // The title of the bookmark.
+		}
+
 		return itemId;
 	},
 	

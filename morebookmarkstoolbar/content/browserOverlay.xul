@@ -13,7 +13,7 @@ href="chrome://morebookmarkstoolbar/skin/browserOverlay.css" ?>
 		src="chrome://morebookmarkstoolbar/content/browserOverlay.js" />
 
 	<toolbox id="navigator-toolbox">
-		<toolbar id="morebookmarkstoolbar-Toolbar" toolbarname="Tutorial Toolbar" accesskey="T"
+		<toolbar id="morebookmarkstoolbar-Toolbar" toolbarname="More Bookmarks Toolbar" accesskey="T"
 			class="chromeclass-directories" context="toolbar-context-menu" 
 			hidden="false" persist="hidden">
 			<!-- TODO: add URL, version to string bundle and link from about box -->

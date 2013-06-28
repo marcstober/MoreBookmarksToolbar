@@ -2,5 +2,5 @@
 # to give the right format for FF add-on.
 cd MoreBookmarksToolbar
 # -x to exclude (Mac)Vim swap files.
-zip -r ../morebookmarkstoolbar.xpi * -x *.swp
+zip -r ../morebookmarkstoolbar.xpi * -x *.swp *.DS_Store
 cd ..
