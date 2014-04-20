@@ -2,3 +2,6 @@
 {
 	list-style-image: url("chrome://morebookmarkstoolbar/skin/icon.png");
 }
+.PlacesToolbarDropIndicator {
+    list-style-image: url('chrome://browser/skin/places/toolbarDropMarker.png');
+}

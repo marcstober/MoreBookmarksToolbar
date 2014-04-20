@@ -2,26 +2,32 @@
 <?xml-stylesheet type="text/css" href="chrome://global/skin/" ?>
 <?xml-stylesheet type="text/css"
 href="chrome://morebookmarkstoolbar/skin/browserOverlay.css" ?>
-
-<!DOCTYPE overlay SYSTEM
-"chrome://morebookmarkstoolbar/locale/browserOverlay.dtd">
-
-<overlay id="morebookmarkstoolbar-browser-overlay"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
-	<script type="application/x-javascript"
-		src="chrome://morebookmarkstoolbar/content/browserOverlay.js" />
-
-	<toolbox id="navigator-toolbox">
-		<toolbar id="morebookmarkstoolbar-Toolbar" toolbarname="More Bookmarks Toolbar" accesskey="T"
-			class="chromeclass-directories" context="toolbar-context-menu" 
-			hidden="false" persist="hidden">
-			<!-- TODO: add URL, version to string bundle and link from about box -->
-			<toolbarbutton id="morebookmarkstoolbar-main-button" class="bookmark-item"
-				tooltiptext="About More Bookmarks Toolbar"
-				oncommand="alert('More Bookmarks Toolbar\nby Marc Stober\n\nAdd bookmarks to the folder More Bookmarks Toolbar and restart Firefox to see them here.');" />
-			<toolbaritem id="morebookmarkstoolbar-DynButtonContainer" 
-				oncommand="MoreBookmarksToolbar.BrowserOverlay.navigate(event);" />
-		</toolbar>
-	</toolbox>
+<!DOCTYPE overlay SYSTEM "chrome://morebookmarkstoolbar/locale/browserOverlay.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="morebookmarkstoolbar-browser-overlay">
+  <!-- TODO why x? -->
+  <script type="application/x-javascript" src="chrome://morebookmarkstoolbar/content/browserOverlay.js"/>
+  <script type="application/x-javascript" src="chrome://morebookmarkstoolbar/content/browserPlacesToolbarGeneric.js"/>
+  <toolbox id="navigator-toolbox">
+    <toolbar id="morebookmarkstoolbar-Toolbar" mode="icons" iconsize="small" defaulticonsize="small" lockiconsize="true" class="chromeclass-directories" context="toolbar-context-menu" defaultset="personal-bookmarks" toolbarname="More Bookmarks Toolbar" accesskey="T" collapsed="false" customizable="true">
+      <toolbaritem flex="1" id="personal-bookmarks" title="Bookmarks" removable="true">
+      <!-- TODO: add URL, version to string bundle and link from about box -->
+      <toolbarbutton id="morebookmarkstoolbar-main-button" class="bookmark-item" tooltiptext="About More Bookmarks Toolbar" oncommand="alert('More Bookmarks Toolbar\nby Marc Stober\n\nAdd bookmarks to the folder More Bookmarks Toolbar to see them here.');"/>
+        <hbox flex="1" class="PlacesToolbar" context="placesContext" onclick="BookmarksEventHandler.onClick(event, this._placesView);" oncommand="BookmarksEventHandler.onCommand(event, this._placesView);" tooltip="bhTooltip" popupsinherittooltip="true">
+          <toolbarbutton class="bookmark-item bookmarks-toolbar-customize" mousethrough="never" label="Bookmarks Toolbar Items"/>
+          <hbox flex="1">
+            <hbox align="center">
+              <image class="PlacesToolbarDropIndicator" mousethrough="always" collapsed="true"/>
+            </hbox>
+            <scrollbox orient="horizontal" class="PlacesToolbarItems" flex="1">
+            </scrollbox>
+			<toolbarbutton type="menu" class="PlacesChevron chevron" mousethrough="never"
+				collapsed="true"	tooltiptext="Show more bookmarks" 
+				onpopupshowing=" document.getElementById('morebookmarkstoolbar-Toolbar').getElementsByClassName('PlacesToolbar')[0]._placesView._onChevronPopupShowing(event);">
+              <menupopup class="PlacesChevronPopup" placespopup="true" tooltip="bhTooltip" popupsinherittooltip="true" context="placesContext" place="place:folder=TOOLBAR" type="places"/>
+            </toolbarbutton>
+          </hbox>
+        </hbox>
+      </toolbaritem>
+    </toolbar>
+  </toolbox>
 </overlay>

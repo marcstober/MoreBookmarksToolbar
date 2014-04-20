@@ -1,35 +1,18 @@
-/**
- * MoreBookmarksToolbar namespace.
- */
+// MoreBookmarksToolbar namespace
 if ("undefined" == typeof(MoreBookmarksToolbar)) {
   var MoreBookmarksToolbar = {};
 }
 
 MoreBookmarksToolbar.BrowserOverlay = {
-	addButtons : function(e) {
-		//alert("adding buttons..."); // debugging
+	addButtons: function(e) {
+
+		var container = document.getElementById("morebookmarkstoolbar-Toolbar");
 
 		// get the More Bookmarks folder
-		var folderId = this.getFolderId();
+		var folderUri = this.getFolderUri();
+		console.log(folderUri);
 
-		var folderItems = this.getFolderItems(folderId);
-		var root = folderItems.root;
-		root.containerOpen = true;
-		for (var i = 0; i < root.childCount; i++) {
-			var node = root.getChild(i);
-			this.addButton(node);
-		}
-		root.containerOpen = false;
-	},
-
-	// placesNode is a nsINavHistoryResultNode
-	addButton: function(placesNode) {
-		var container = document.getElementById("morebookmarkstoolbar-DynButtonContainer");
-		var newButton = document.createElement("toolbarbutton");
-		newButton.setAttribute("label", placesNode.title);
-		newButton.setAttribute("class", "bookmark-item");
-		newButton._placesNode = placesNode;
-		container.appendChild(newButton);
+		var ptg = new PlacesToolbarGeneric(folderUri, container);
 	},
 
 	getFolderItems: function (folderId)
@@ -41,14 +24,13 @@ MoreBookmarksToolbar.BrowserOverlay = {
 		query.setFolders([folderId], 1);
 
 		var queryString = historyService.queriesToQueryString([query], 1, options); // debugging
-		//alert(queryString); // debugging
 
 		return historyService.executeQuery(query, options);
 	},
 
 	// This seems like a lot of code to find one item?
 	// TODO: see how that other extension does it
-	getFolderId: function () {
+	getFolderUri: function () {
 
 		var bmsvc = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
                       .getService(Components.interfaces.nsINavBookmarksService);
@@ -56,18 +38,17 @@ MoreBookmarksToolbar.BrowserOverlay = {
 
 		var result = this.getFolderItems(menuFolder);
 
-		//alert("menuFolder.root.childCount=" + result.root.childCount);
-
 		var root = result.root;
 		root.containerOpen = true;
 		// iterate over immediate children of this folder
-		var itemId = -1;
+		var uri = null;
 		var title = "More Bookmarks Toolbar"; // TODO const?
 		for (var i = 0; i < root.childCount; i ++) {
 		  var node = root.getChild(i);
 			if (node.type === node.RESULT_TYPE_FOLDER) {
 				if (node.title === title) {
-					itemId = node.itemId;
+					console.log(node); // debugging
+					uri = node.uri;
 					break;
 				}
 			}
@@ -77,8 +58,8 @@ MoreBookmarksToolbar.BrowserOverlay = {
 		root.containerOpen = false;
 
 		// Add folder if doesn't exist, with link to extension's home page.
-		if (itemId === -1) {
-			itemId = bmsvc.createFolder(
+		if (uri === null) {
+			folderId = bmsvc.createFolder(
 				bmsvc.bookmarksMenuFolder,
 				title,
 				bmsvc.DEFAULT_INDEX);
@@ -89,17 +70,15 @@ MoreBookmarksToolbar.BrowserOverlay = {
                 .newURI("http://www.marcstober.com/blog/more-bookmarks-toolbar/", null, null);
 
 			var bookmarkId = bmsvc.insertBookmark(
-				itemId, bookmarkURI, bmsvc.DEFAULT_INDEX,
+				folderId, bookmarkURI, bmsvc.DEFAULT_INDEX,
 				"More Bookmarks Toolbar Homepage");    // The title of the bookmark.
+
+			// TODO: This feels like a hack.
+			uri = "place:folder=" + folderId;
 		}
 
-		return itemId;
+		return uri;
 	},
-	
-	navigate: function(e) {
-		// FUTURE: figure out exactly how built-in Bookmarks Toolbar works
-		openUILink(e.target._placesNode.uri, e);
-	}
 };
 
 // Why doesn't the first one work?

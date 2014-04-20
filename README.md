@@ -8,3 +8,6 @@ for a Firefox Extension. Remember to `chmod +x build.sh` before running it.
 `.bat` and run it on Windows, too, but I haven't tried that.)
 
 The master file for the icon is in Pixelmator (Mac) format.
+
+URL of relevant source code in Firefox 28: http://hg.mozilla.org/releases/mozilla-release/file/5f7c149b07ba/browser/components/places/content/browserPlacesViews.js
+(A copy of this file is also in this repository.)
