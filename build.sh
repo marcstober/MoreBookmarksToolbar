@@ -1,3 +1,4 @@
+rm morebookmarkstoolbar.xpi
 # zip must run from the directory that contains the files
 # to give the right format for FF add-on.
 cd MoreBookmarksToolbar
