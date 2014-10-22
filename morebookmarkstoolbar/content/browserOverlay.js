@@ -23,7 +23,7 @@ MoreBookmarksToolbar.BrowserOverlay = {
 		var query = historyService.getNewQuery();
 		query.setFolders([folderId], 1);
 
-		var queryString = historyService.queriesToQueryString([query], 1, options); // debugging
+		//var queryString = historyService.queriesToQueryString([query], 1, options); // debugging
 
 		return historyService.executeQuery(query, options);
 	},
@@ -47,7 +47,7 @@ MoreBookmarksToolbar.BrowserOverlay = {
 		  var node = root.getChild(i);
 			if (node.type === node.RESULT_TYPE_FOLDER) {
 				if (node.title === title) {
-					console.log(node); // debugging
+					//console.log(node); // debugging
 					uri = node.uri;
 					break;
 				}
