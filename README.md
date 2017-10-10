@@ -1,3 +1,7 @@
+THIS ADD-ON IS NOT COMPATIBLE WITH FIREFOX 56 OR LATER. Due to changes in Firefox, unfortunately I'd need to do a completely rewrite of the Toolbar and it wouldn't even be able to work the way it did before, and I've changed my focus professionally so no longer have time to work on this. THANK YOU for your support and use of this tool over the years, I'm sorry to say goodbye! For more details see: <a href="http://www.marcstober.com/blog/2017/10/09/retiring-the-more-bookmarks-toolbar/">http://www.marcstober.com/blog/2017/10/09/retiring-the-more-bookmarks-toolbar/</a>
+
+----
+
 This is the source code for More Bookmarks Toolbar, 
 a Firefox Extension by Marc Stober.
 
